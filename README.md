@@ -638,7 +638,7 @@ This guide was created based on the following resources and community contributi
 - [OpenWrt Forum - IPTV IGMP Proxy Firewall Issues](https://forum.openwrt.org/t/solved-iptv-igmpproxy-and-firewall-issues/12890/16) - Firewall configuration for IPTV
 
 ### Acknowledgments
-Special thanks to the OpenWrt community and the authors of the referenced guides for their contributions to the OpenWrt ecosystem and KPN fiber configuration knowledge.
+Special thanks to the OpenWrt community and the authors of the referenced guides for their contributions to the OpenWrt ecosystem and KPN FTTH configuration knowledge.
 
 ---
 
@@ -652,7 +652,7 @@ Congratulations! You now have a fully configured Flint 3 router with:
 - ✅ IPTV working on dedicated Port 4
 - ✅ Complete firewall and DHCP configuration
 
-Your KPN fiber setup is now complete and ready for both internet and IPTV services. The configuration provides optimal performance, security, and reliability for your network.
+Your KPN FTTH setup is now complete and ready for both internet and IPTV services. The configuration provides optimal performance, security, and reliability for your network.
 
 ### Optional Next Steps
 
