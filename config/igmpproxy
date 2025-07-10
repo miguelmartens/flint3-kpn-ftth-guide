@@ -1,0 +1,13 @@
+config igmpproxy
+        option quickleave '1'
+
+config phyint
+        option network 'iptv'
+        option direction 'upstream'
+        list altnet '192.168.8.0/24'
+        list altnet '217.166.0.0/16'
+        list altnet '213.75.0.0/16'
+
+config phyint
+        option network 'lan'
+        option direction 'downstream'
