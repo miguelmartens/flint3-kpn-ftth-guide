@@ -245,6 +245,14 @@ These settings ensure optimal performance while avoiding packet fragmentation.
 - LAN ports are untagged for simple device connectivity
 - WAN port is tagged for VLAN 6 (Internet)
 
+### 3.5 Switch
+
+The following warning is displayed in LuCI when factory reset: "Switch switch0 has an unknown topology - the VLAN settings might not be accurate".
+
+Your Flint 3 running OpenWrt shows two switch entries because one represents the SoC’s internal switch managed via the newer DSA framework (switch0), and the other is the external switch chip still managed via the legacy swconfig subsystem (switch1). Luci flags switch0 as having “unknown topology” because the old swconfig-based UI cannot interpret DSA-managed switches.
+
+Due to this I deleted the switch0 block entirely to avoid confusion in LuCI.
+
 ---
 
 ## Part 4: AdGuard Home Setup
