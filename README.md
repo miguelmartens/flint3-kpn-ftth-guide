@@ -298,6 +298,60 @@ Due to this I deleted the switch0 block entirely to avoid confusion in LuCI.
 - Custom filtering rules and whitelists
 - Better privacy and security
 
+### 4.4 Configure DNS Blocklists
+
+**Recommended Blocklist Configuration:**
+
+For optimal protection, it's recommended to use these blocklists in combination. Each serves a specific purpose and provides comprehensive coverage:
+
+1. **Navigate to AdGuard Home Interface:**
+   - Open the AdGuard Home web interface
+   - Go to **Filters** → **DNS blocklists**
+
+2. **Add Recommended Blocklists:**
+
+   **AdGuard DNS filter:**
+   - **URL:** `https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt`
+   - **Purpose:** Core ad blocking and tracking protection
+   - **Type:** Ad blocking and privacy
+
+   **HaGeZi's Threat Intelligence Feeds:**
+   - **URL:** `https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/light.txt`
+   - **Purpose:** Blocks malicious domains, phishing, and malware
+   - **Type:** Security and threat protection
+
+   **HaGeZi's Pro++ Blocklist:**
+   - **URL:** `https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/pro.plus.txt`
+   - **Purpose:** Comprehensive blocking including ads, tracking, and unwanted content
+   - **Type:** Enhanced privacy and content filtering
+
+   **Dandelion Sprout's Anti-Malware List:**
+   - **URL:** `https://raw.githubusercontent.com/DandelionSprout/adfilt/master/GameConsoleAdblockList.txt`
+   - **Purpose:** Blocks malware, scam sites, and malicious domains
+   - **Type:** Security and malware protection
+
+3. **Blocklist Configuration Tips:**
+   - **Update Frequency:** Set all blocklists to update every 24 hours
+   - **Enabled Status:** Ensure all blocklists are enabled after adding
+   - **Whitelist Management:** Monitor for false positives and add necessary whitelist entries
+   - **Performance:** These blocklists are optimized for performance and won't significantly impact DNS resolution speed
+
+5. **Verify Blocklist Functionality:**
+   - Test ad blocking by visiting known ad-heavy websites
+   - Check the AdGuard Home dashboard for blocked queries
+   - Monitor the logs for any issues with blocklist updates
+
+**Blocklist Sources and Information:**
+- **HaGeZi's DNS Blocklists:** [GitHub Repository](https://github.com/hagezi/dns-blocklists)
+- **AdGuard DNS Filter:** [Official Documentation](https://adguard-dns.io/en/public-dns.html)
+- **Dandelion Sprout's Lists:** [GitHub Repository](https://github.com/DandelionSprout/adfilt)
+
+**Performance Considerations:**
+- These blocklists are regularly updated and optimized for performance
+- Combined, they provide comprehensive protection without significant latency impact
+- Monitor system resources if you add additional large blocklists
+- Consider your network's specific needs when adding extra blocklists
+
 ---
 
 ## Part 5: IPTV Plugin Installation
