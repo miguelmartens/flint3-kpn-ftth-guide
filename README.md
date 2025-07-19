@@ -13,6 +13,8 @@ This setup will configure:
 
 The configuration uses the default IP range of `192.168.8.x` and provides both wired and wireless IPTV options.
 
+**Note:** In earlier attempts there was a dedicated port (LAN4 / port 7) for IPTV, but now it's working over all the LAN ports same as the default KPN ExperiaBox.
+
 ---
 
 ## Prerequisites
