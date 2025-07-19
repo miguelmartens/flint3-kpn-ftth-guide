@@ -673,4 +673,4 @@ If you want to extend your setup further, consider:
 - **Guest Network:** Set up isolated guest Wi-Fi access
 - **VPN Configuration:** Add VPN services for enhanced security
 - **Advanced AdGuard Home:** Configure custom filtering rules and whitelists
-- **Access Point:** Add a secondary Flint 3 router as Access Point for more coverage
+- **Access Point:** Add a secondary Flint 3 router as Access Point for more coverage - [See Access Point Setup Guide](ACCESS_POINT_SETUP.md)
