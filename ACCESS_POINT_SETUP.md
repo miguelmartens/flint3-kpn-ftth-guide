@@ -107,6 +107,109 @@ This guide explains how to configure a second Flint 3 router as an Access Point 
    - Click **Apply** to save all wireless settings
    - The access point will restart the wireless services
 
+**Note Guest Network** In the GUI its not possible to set Guest SSID's, do this in LuCI
+
+---
+
+## Part 3.5: Configure Wi-Fi Roaming (802.11r Fast Transition)
+
+### 3.5.1 Enable Roaming on Main Router
+
+1. **Access LuCI Interface:**
+   - In the main router's GL.iNet web interface, go to **SYSTEM** → **Advanced Settings**
+   - Click **"Go To LuCI"** to access the full OpenWrt configuration interface
+   - Login with your admin password
+
+2. **Navigate to Wireless Configuration:**
+   - Go to **Network** → **Wireless**
+   - Click on **Edit** for the wireless network you want to configure for roaming
+
+3. **Configure Interface Settings:**
+   - Click on the **Interface Configuration** tab
+   - Navigate to the **WLAN Roaming** tab
+
+4. **Enable 802.11r Fast Transition:**
+   - Check the box for **802.11r Fast Transition**
+   - Set **Mobility Domain** to a unique value (e.g., `1234`)
+   - Set **R0 Key Lifetime** to `10000` (default value)
+   - Set **R1 Key Holder** to `000000000000` (default value)
+   - Set **Reassociation Deadline** to `1000` (default value)
+
+5. **Save Configuration:**
+   - Click **Save & Apply** to apply the changes
+
+6. **Repeat for All SSIDs:**
+   - Repeat steps 2-5 for each wireless network
+   - Use the same **Mobility Domain** value for all networks on the same router
+
+### 3.5.2 Enable Roaming on Access Point Router
+
+1. **Access LuCI Interface:**
+   - In the access point router's web interface, go to **SYSTEM** → **Advanced Settings**
+   - Click **"Go To LuCI"** to access the full OpenWrt configuration interface
+   - Login with your admin password
+
+2. **Navigate to Wireless Configuration:**
+   - Go to **Network** → **Wireless**
+   - Click on **Edit** for the wireless network you want to configure for roaming
+
+3. **Configure Interface Settings:**
+   - Click on the **Interface Configuration** tab
+   - Navigate to the **WLAN Roaming** tab
+
+4. **Enable 802.11r Fast Transition:**
+   - Check the box for **802.11r Fast Transition**
+   - Set **Mobility Domain** to the **same value** as the main router (e.g., `1234`)
+   - Set **R0 Key Lifetime** to `10000` (default value)
+   - Set **R1 Key Holder** to `000000000000` (default value)
+   - Set **Reassociation Deadline** to `1000` (default value)
+
+5. **Save Configuration:**
+   - Click **Save & Apply** to apply the changes
+
+6. **Repeat for All SSIDs:**
+   - Repeat steps 2-5 for each wireless network
+   - Use the same **Mobility Domain** value for all networks on the access point
+
+### 3.5.3 Roaming Configuration Details
+
+**What is 802.11r Fast Transition?**
+- **802.11r** is a Wi-Fi standard that enables fast roaming between access points
+- It allows devices to quickly switch between access points without re-authentication
+- Reduces connection interruption during roaming from ~100ms to ~10ms
+
+**Key Configuration Parameters:**
+- **Mobility Domain:** Must be identical across all access points in the roaming network
+- **R0 Key Lifetime:** How long the PMK-R0 key is valid (default: 10000 seconds)
+- **R1 Key Holder:** MAC address of the key holder (default: 000000000000)
+- **Reassociation Deadline:** Maximum time for reassociation (default: 1000 milliseconds)
+
+**Benefits of 802.11r:**
+- Faster handoffs between access points
+- Reduced connection drops during roaming
+- Better performance for VoIP and video calls
+- Improved user experience for mobile devices
+
+### 3.5.4 Verify Roaming Configuration
+
+1. **Check Configuration:**
+   - In LuCI, go to **Network** → **Wireless**
+   - Verify that 802.11r is enabled for all networks
+   - Confirm Mobility Domain values match across routers
+
+2. **Test Roaming:**
+   - Connect a device to the Wi-Fi network
+   - Walk between the main router and access point
+   - Monitor for seamless handoffs without connection drops
+   - Use a Wi-Fi analyzer app to verify the device switches access points
+
+3. **Monitor Logs:**
+   ```bash
+   # Check for roaming events in the system logs
+   logread | grep -i roam
+   logread | grep -i 802.11r
+   ```
+
 ---
 
 ## Part 4: Set Reserved IP Address
@@ -154,6 +257,17 @@ This guide explains how to configure a second Flint 3 router as an Access Point 
    - Walk between the main router and access point
    - Verify seamless handoff between access points
    - Check that your device maintains internet connectivity
+   - Monitor for any connection drops during handoffs
+   - Use a Wi-Fi analyzer app to verify access point switching
+
+3. **Advanced Roaming Test:**
+   - Start a continuous ping to test connection stability:
+     ```bash
+     ping -t 8.8.8.8
+     ```
+   - Walk between access points while monitoring ping response times
+   - Verify no packet loss during handoffs
+   - Test with bandwidth-intensive applications (video calls, streaming)
 
 ### 5.2 Test IPTV (if applicable)
 
@@ -188,12 +302,85 @@ This guide explains how to configure a second Flint 3 router as an Access Point 
    - Set to appropriate level (usually 20-23 dBm for home use)
    - Higher power may cause interference, lower power may reduce coverage
 
-### 6.3 Enable Mesh Features (if available)
+### 6.3 Mesh Networking Limitations
 
-1. **Check for Mesh Options:**
-   - Some GL.iNet routers support mesh networking
-   - Enable mesh features for better roaming and management
-   - Follow manufacturer's instructions for mesh setup
+**Important:** The Flint 3 router uses a Broadcom chipset, which has limitations for mesh networking in OpenWrt.
+
+#### Why Mesh Isn't Supported
+
+1. **Broadcom Chipset Limitations:**
+   - The Flint 3 uses a Broadcom BCM6756 chipset
+   - Broadcom chipsets have limited support for 802.11s mesh networking in OpenWrt
+   - Driver limitations prevent proper mesh protocol implementation
+
+2. **802.11s Mesh Protocol:**
+   - 802.11s is the IEEE standard for wireless mesh networking
+   - Requires specific hardware and driver support
+   - Not all Wi-Fi chipsets support mesh networking features
+
+3. **OpenWrt Mesh Documentation:**
+   - [OpenWrt 802.11s Mesh Guide](https://openwrt.org/docs/guide-user/network/wifi/mesh/802-11s)
+   - [OpenWrt 80211s Mesh Configuration](https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s)
+
+#### Alternatives to Mesh Networking
+
+**1. Access Point Mode (Current Setup)**
+- **Advantages:**
+  - Works with any OpenWrt-compatible router
+  - Simple configuration and management
+  - Reliable performance with wired backhaul
+  - Supports all features including IPTV and VLANs
+- **Disadvantages:**
+  - Requires Ethernet cable connection
+  - No wireless backhaul option
+
+**2. Wireless Bridge Mode**
+- **Configuration:**
+  - Configure access point router in wireless bridge mode
+  - Connect to main router's Wi-Fi network
+  - Extend network without Ethernet cable
+- **Limitations:**
+  - Reduced bandwidth due to wireless backhaul
+  - May not support all VLAN features
+  - More complex configuration
+
+**3. WDS (Wireless Distribution System)**
+- **What it is:**
+  - Older wireless bridging technology
+  - Limited support in modern OpenWrt builds
+  - Not recommended for new deployments
+
+**4. Alternative Hardware Options**
+- **Qualcomm-based routers:** Better mesh support in OpenWrt
+- **MediaTek-based routers:** Good mesh compatibility
+- **Dedicated mesh systems:** Commercial solutions like Google WiFi, Eero, etc.
+
+#### Recommended Approach
+
+For the Flint 3 router, the **Access Point mode** (as configured in this guide) is the best solution because:
+
+1. **Reliability:** Wired backhaul provides stable, high-bandwidth connection
+2. **Feature Support:** Full support for IPTV, VLANs, and advanced features
+3. **Performance:** No bandwidth reduction from wireless backhaul
+4. **Simplicity:** Easy to configure and maintain
+5. **Cost-Effective:** Uses existing hardware without additional purchases
+
+#### Future Considerations
+
+If you need wireless backhaul or true mesh networking:
+
+1. **Research Compatible Hardware:**
+   - Look for routers with Qualcomm or MediaTek chipsets
+   - Check OpenWrt hardware compatibility lists
+   - Verify mesh support before purchase
+
+2. **Consider Commercial Solutions:**
+   - Dedicated mesh systems may offer better performance
+   - However, they lack the advanced features of OpenWrt
+
+3. **Hybrid Approach:**
+   - Use access points for critical areas (wired backhaul)
+   - Add wireless bridges for remote locations if needed
 
 ---
 
@@ -238,6 +425,46 @@ This guide explains how to configure a second Flint 3 router as an Access Point 
    - Connect TV+ Box directly to access point's LAN port
    - If wired works but wireless doesn't, check Wi-Fi multicast settings
 
+#### Roaming Not Working Properly
+1. **Check 802.11r Configuration:**
+   - Verify 802.11r is enabled on both routers
+   - Ensure Mobility Domain values match exactly
+   - Check that all SSIDs have the same roaming configuration
+
+2. **Verify Client Support:**
+   - Not all devices support 802.11r Fast Transition
+   - Test with different devices (phones, laptops, tablets)
+   - Check device specifications for 802.11r support
+
+3. **Check Signal Overlap:**
+   - Ensure sufficient signal overlap between access points
+   - Use Wi-Fi analyzer to check signal strength
+   - Adjust transmit power if needed
+
+4. **Monitor System Logs:**
+   ```bash
+   # Check for roaming-related errors
+   logread | grep -i roam
+   logread | grep -i 802.11r
+   logread | grep -i wlan
+   ```
+
+#### Mesh Networking Questions
+1. **Why Can't I Enable Mesh Mode?**
+   - The Flint 3 uses a Broadcom chipset with limited mesh support
+   - Access Point mode is the recommended alternative
+   - Check hardware compatibility before attempting mesh configuration
+
+2. **Alternative to Wired Connection:**
+   - Consider wireless bridge mode for remote locations
+   - Research routers with better mesh support (Qualcomm/MediaTek)
+   - Commercial mesh systems may be more suitable
+
+3. **Performance Comparison:**
+   - Wired Access Point: Best performance, full feature support
+   - Wireless Bridge: Reduced bandwidth, limited features
+   - True Mesh: Hardware dependent, not supported on Flint 3
+
 ---
 
 ## Configuration Summary
@@ -247,6 +474,7 @@ After completing this setup, you will have:
 - ✅ **Main Router:** `192.168.8.1` - Primary router with KPN FTTH and IPTV
 - ✅ **Access Point:** `192.168.8.2` - Secondary router extending Wi-Fi coverage
 - ✅ **Unified Network:** Single `192.168.8.0/24` network with seamless roaming
+- ✅ **802.11r Fast Transition:** Enabled for fast roaming between access points
 - ✅ **Shared Services:** Internet, IPTV, and AdGuard Home accessible from both routers
 - ✅ **Extended Coverage:** Improved Wi-Fi coverage throughout your home
 
