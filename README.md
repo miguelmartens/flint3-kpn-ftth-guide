@@ -7,7 +7,6 @@ This guide provides a complete setup for the GL.iNet Flint 3 router with OpenWrt
 This setup will configure:
 - **VLAN 6** for PPPoE Internet connection
 - **VLAN 4** for KPN IPTV (multicast) services
-- **Port-based VLAN configuration** for optimal performance
 - **IGMP proxy** for multicast TV streaming
 - **AdGuard Home** for DNS filtering and security
 
