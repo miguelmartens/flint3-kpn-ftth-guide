@@ -107,7 +107,7 @@ This guide explains how to configure a second Flint 3 router as an Access Point 
    - Click **Apply** to save all wireless settings
    - The access point will restart the wireless services
 
-**Note Guest Network** In the GUI its not possible to set Guest SSID's, do this in LuCI
+**Note Access Point Guest Network** In the GUI its not possible to set Guest SSID's, do this in LuCI if needed
 
 ---
 
