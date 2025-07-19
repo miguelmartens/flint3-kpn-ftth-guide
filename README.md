@@ -13,6 +13,8 @@ This setup will configure:
 
 The configuration uses the default IP range of `192.168.8.x` and provides both wired and wireless IPTV options.
 
+**Note:** In earlier attempts there was a dedicated port (LAN4 / port 7) for IPTV, but now it's working over all the LAN ports same as the default KPN ExperiaBox.
+
 ---
 
 ## Prerequisites
@@ -34,10 +36,10 @@ The configuration uses the default IP range of `192.168.8.x` and provides both w
 ### Physical Port Configuration
 ```
 Port 0 = WAN (connected to KPN ONT)
-Port 1 = LAN (general network devices)
-Port 2 = LAN (general network devices)
-Port 3 = LAN (general network devices)
-Port 4 = IPTV (dedicated for KPN TV+ Box)
+Port 1 = LAN (general network devices + KPN TV+ Box)
+Port 2 = LAN (general network devices + KPN TV+ Box)
+Port 3 = LAN (general network devices + KPN TV+ Box)
+Port 4 = LAN (general network devices + KPN TV+ Box)
 ```
 
 ---
@@ -94,7 +96,7 @@ cp /etc/config/dhcp /etc/config/dhcp.bak
 
 2. **Important Notice - Switch Topology Warning:**
    > **⚠️ Warning:** You may see a message: "Switch switch0 has an unknown topology - the VLAN settings might not be accurate."
-   > 
+   >
    > This is a known issue with some OpenWrt builds and can be safely ignored for now. The switch0 configuration will be handled manually in the network configuration file.
 
 ### 1.3 SSH Access Setup
@@ -243,6 +245,14 @@ These settings ensure optimal performance while avoiding packet fragmentation.
 - LAN ports are untagged for simple device connectivity
 - WAN port is tagged for VLAN 6 (Internet)
 
+### 3.5 Switch
+
+The following warning is displayed in LuCI when factory reset: "Switch switch0 has an unknown topology - the VLAN settings might not be accurate".
+
+Your Flint 3 running OpenWrt shows two switch entries because one represents the SoC’s internal switch managed via the newer DSA framework (switch0), and the other is the external switch chip still managed via the legacy swconfig subsystem (switch1). Luci flags switch0 as having “unknown topology” because the old swconfig-based UI cannot interpret DSA-managed switches.
+
+Due to this I deleted the switch0 block entirely to avoid confusion in LuCI.
+
 ---
 
 ## Part 4: AdGuard Home Setup
@@ -271,6 +281,8 @@ These settings ensure optimal performance while avoiding packet fragmentation.
    - Follow the AdGuard Home setup wizard
    - Configure admin credentials
    - Set up basic filtering rules and configure DNS
+   - Make sure Parallel requests is selected
+   - Enable DNSSEC
 
 ### 4.3 Important DNS Configuration Notice
 
@@ -404,7 +416,7 @@ After these steps, your new firewall zones, forwarding rules and custom rules ar
    - Copy the complete DHCP configuration from your repository
    - **Important:** Replace the broadcast address in the IPTV DHCP options:
      - Find `list dhcp_option '28,192.168.8.255'`
-     - Ensure this matches your LAN broadcast address (in your case `192.168.8.255`)
+     - Ensure this matches your LAN broadcast address (in my case `192.168.8.255`)
    - Save the file (`:wq` in vim)
 
 3. **Apply DHCP Changes:**
@@ -448,7 +460,7 @@ After these steps, your new firewall zones, forwarding rules and custom rules ar
    - Copy the complete IGMP proxy configuration from your repository
    - **Important:** Verify the LAN address range in the upstream configuration:
      - Find `list altnet '192.168.8.0/24'` in the upstream section
-     - Ensure this matches your LAN subnet (in your case `192.168.8.0/24`)
+     - Ensure this matches your LAN subnet (in my case `192.168.8.0/24`)
    - Save the file (`:wq` in vim)
 
 3. **Apply IGMP Proxy Changes:**
@@ -510,7 +522,7 @@ After these steps, your new firewall zones, forwarding rules and custom rules ar
 ### 7.1 Test IPTV Connectivity
 
 1. **Connect KPN TV+ Box:**
-   - Connect your KPN TV+ Box to **Port 4** (dedicated IPTV port)
+   - Connect your KPN TV+ Box to a LAN port
    - Power on the TV+ Box and wait for it to boot
 
 2. **Verify IP Address Assignment:**
@@ -604,7 +616,7 @@ This repository includes the complete configuration files needed for the KPN FTT
    uci commit firewall
    uci commit dhcp
    uci commit igmpproxy
-   
+
    /etc/init.d/network reload
    /etc/init.d/firewall reload
    /etc/init.d/dnsmasq reload
@@ -649,7 +661,7 @@ Congratulations! You now have a fully configured Flint 3 router with:
 - ✅ Proper VLAN configuration for all ports
 - ✅ AdGuard Home DNS filtering and security
 - ✅ IGMP proxy for multicast TV streaming
-- ✅ IPTV working on dedicated Port 4
+- ✅ IPTV working on all LAN ports
 - ✅ Complete firewall and DHCP configuration
 
 Your KPN FTTH setup is now complete and ready for both internet and IPTV services. The configuration provides optimal performance, security, and reliability for your network.
@@ -661,3 +673,4 @@ If you want to extend your setup further, consider:
 - **Guest Network:** Set up isolated guest Wi-Fi access
 - **VPN Configuration:** Add VPN services for enhanced security
 - **Advanced AdGuard Home:** Configure custom filtering rules and whitelists
+- **Access Point:** Add a secondary Flint 3 router as Access Point for more coverage - [See Access Point Setup Guide](ACCESS_POINT_SETUP.md)
