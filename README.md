@@ -352,6 +352,68 @@ For optimal protection, it's recommended to use these blocklists in combination.
 - Monitor system resources if you add additional large blocklists
 - Consider your network's specific needs when adding extra blocklists
 
+### 4.5 Test Ad Blocking Effectiveness
+
+After configuring your blocklists, it's important to test their effectiveness. Here are recommended testing tools to verify your AdGuard Home setup:
+
+**Recommended Testing Tools:**
+
+1. **[Can You Block It](https://canyoublockit.com/)**
+   - **Simple Test:** Basic self-hosted advertisements
+   - **eXtreme Test:** Various ad formats from popular ad networks
+   - **Advanced Test:** Independent diagnosis of different ad formats
+   - **Best for:** Quick verification of basic ad blocking functionality
+
+2. **[AdBlock Tester](https://adblock-tester.com/)**
+   - **Comprehensive Testing:** Tests contextual advertising, analytics tools, banner advertising, and error monitoring
+   - **Detailed Results:** Provides specific scores and detailed breakdowns
+   - **Multiple Categories:** Covers Google AdSense, Yandex Direct, Google Analytics, Hotjar, and more
+   - **Best for:** Detailed analysis of different ad and tracking types
+
+3. **[AdBlock Turtlecute](https://adblock.turtlecute.org/)**
+   - **Advanced Testing:** Tests cosmetic filtering, ad script loading, and host blocking
+   - **Compatibility Table:** Shows tested browser-adblock combinations
+   - **Real-time Results:** Live testing with immediate feedback
+   - **Best for:** Advanced users wanting detailed technical analysis
+
+**Testing Procedure:**
+
+1. **Before Testing:**
+   - Ensure AdGuard Home is running and all blocklists are updated
+   - Clear your browser cache to avoid false results
+   - Disable any browser-based ad blockers to test only AdGuard Home
+
+2. **Run Tests:**
+   - Start with [Can You Block It](https://canyoublockit.com/) for basic verification
+   - Use [AdBlock Tester](https://adblock-tester.com/) for comprehensive analysis
+   - Try [AdBlock Turtlecute](https://adblock.turtlecute.org/) for advanced testing
+
+3. **Interpret Results:**
+   - **Good Results:** Most ads and trackers should be blocked
+   - **Expected Scores:** 80-100% blocking rate is excellent
+   - **False Positives:** Some legitimate services might be blocked (add to whitelist if needed)
+
+**Troubleshooting Common Issues:**
+
+- **Low Blocking Scores:** Check if blocklists are properly loaded and updated
+- **False Positives:** Add legitimate domains to AdGuard Home whitelist
+- **Performance Issues:** Monitor AdGuard Home logs for any errors
+- **Browser Cache:** Clear cache and cookies before testing
+
+**Additional Testing Tips:**
+
+- Test on different devices and browsers on your network
+- Monitor AdGuard Home dashboard during testing to see blocked queries
+- Check AdGuard Home logs for any configuration issues
+- Consider testing at different times to ensure consistent performance
+
+**Expected Results:**
+With the recommended blocklist configuration, you should achieve:
+- **Ad Blocking:** 90-100% success rate on most ad formats
+- **Tracking Protection:** Strong protection against analytics and tracking
+- **Malware Protection:** Effective blocking of malicious domains
+- **Performance:** Minimal impact on browsing speed
+
 ---
 
 ## Part 5: IPTV Plugin Installation

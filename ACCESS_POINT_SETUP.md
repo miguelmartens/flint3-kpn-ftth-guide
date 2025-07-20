@@ -304,13 +304,13 @@ This guide explains how to configure a second Flint 3 router as an Access Point 
 
 ### 6.3 Mesh Networking Limitations
 
-**Important:** The Flint 3 router uses a Broadcom chipset, which has limitations for mesh networking in OpenWrt.
+**Important:** The Flint 3 router uses a Qualcomm chipset, which has limitations for mesh networking in OpenWrt.
 
 #### Why Mesh Isn't Supported
 
-1. **Broadcom Chipset Limitations:**
-   - The Flint 3 uses a Broadcom BCM6756 chipset
-   - Broadcom chipsets have limited support for 802.11s mesh networking in OpenWrt
+1. **Qualcomm Chipset Limitations:**
+   - The Flint 3 uses a Qualcomm  chipset
+   - Qualcomm chipsets have limited support for 802.11s mesh networking in OpenWrt
    - Driver limitations prevent proper mesh protocol implementation
 
 2. **802.11s Mesh Protocol:**
@@ -451,7 +451,7 @@ If you need wireless backhaul or true mesh networking:
 
 #### Mesh Networking Questions
 1. **Why Can't I Enable Mesh Mode?**
-   - The Flint 3 uses a Broadcom chipset with limited mesh support
+   - The Flint 3 uses a Qualcomm chipset with limited mesh support
    - Access Point mode is the recommended alternative
    - Check hardware compatibility before attempting mesh configuration
 
