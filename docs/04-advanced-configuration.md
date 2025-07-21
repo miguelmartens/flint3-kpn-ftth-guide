@@ -19,6 +19,9 @@
 - DHCPv6 and RA (Router Advertisement) are enabled for automatic IPv6 address assignment
 - IPv6 forwarding is properly configured for all interfaces
 
+**Important IPv6 Reliability Note:**
+The `wan6` interface uses `option device '@wan'` instead of `option interface 'wan'` for improved reliability. While both options work according to [OpenWrt documentation](https://openwrt.org/docs/guide-user/network/ipv6/configuration#native_ipv6_connection), using `@wan` (device reference) instead of `'wan'` (interface reference) provides better IPv6 connectivity recovery after fiber converter or ONT hiccups. This ensures IPv6 remains stable even when the connection temporarily drops and reconnects.
+
 ## MTU Settings
 
 **MTU (Maximum Transmission Unit) optimization (Baby jumbo frames):**
@@ -46,4 +49,8 @@ The following warning is displayed in LuCI when factory reset: "Switch switch0 h
 
 Your Flint 3 running OpenWrt shows two switch entries because one represents the SoC's internal switch managed via the newer DSA framework (switch0), and the other is the external switch chip still managed via the legacy swconfig subsystem (switch1). Luci flags switch0 as having "unknown topology" because the old swconfig-based UI cannot interpret DSA-managed switches.
 
-Due to this I deleted the switch0 block entirely to avoid confusion in LuCI. 
+Due to this I deleted the switch0 block entirely to avoid confusion in LuCI.
+
+## Thanks
+
+Special thanks to **Chris.nl** from the tweaker.net forum who pointed out the IPv6 reliability improvement using `option device '@wan'` instead of `option interface 'wan'` for the wan6 configuration. This small but important change ensures better IPv6 connectivity recovery after connection hiccups.
