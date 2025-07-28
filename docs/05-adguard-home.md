@@ -156,4 +156,4 @@ With the recommended blocklist configuration, you should achieve:
 - **Ad Blocking:** 90-100% success rate on most ad formats
 - **Tracking Protection:** Strong protection against analytics and tracking
 - **Malware Protection:** Effective blocking of malicious domains
-- **Performance:** Minimal impact on browsing speed 
+- **Performance:** Minimal impact on browsing speed

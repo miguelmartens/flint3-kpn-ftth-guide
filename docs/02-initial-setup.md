@@ -41,4 +41,4 @@
    ```bash
    ssh root@192.168.8.1
    ```
-   - Use the same admin password you set during the initial setup 
+   - Use the same admin password you set during the initial setup
