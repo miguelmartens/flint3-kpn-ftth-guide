@@ -23,6 +23,16 @@ Port 3 = LAN (general network devices + KPN TV+ Box)
 Port 4 = LAN (general network devices + KPN TV+ Box)
 ```
 
+## Known Issues
+
+### WLAN Issues After Firmware Upgrade
+After upgrading to a new version of the firmware, WLAN may stop working with the following symptoms:
+- Wireless networks show "not associated" status
+- Networks display "Checking for channel availability. This process will take 60 Seconds. Please wait……"
+- Guest networks and MLO (Multi-Link Operation) may also be affected
+
+**Workaround:** Try rebooting the router or resetting the the whole configuration if the issue persists.
+
 ## Tips
 
 ### Backup Configuration Files
@@ -41,4 +51,4 @@ cp /etc/config/dhcp /etc/config/dhcp.bak
 - Test each configuration step before proceeding to the next
 - Keep notes of any custom settings you modify
 - Use SSH for advanced configurations when the web interface is insufficient
-- Monitor system logs for any errors during configuration 
+- Monitor system logs for any errors during configuration

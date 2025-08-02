@@ -84,4 +84,4 @@ After these steps, OpenWrt uses your new network configuration immediately.
 
 3. **IPv6:**
    - In the GL.iNet web interface
-   - Enable IPv6 and set it to 'NAT6' Mode and DNS acquisition method to 'Automatic' 
+   - Enable IPv6 and set it to 'NAT6' Mode and DNS acquisition method to 'Automatic'
