@@ -33,6 +33,11 @@ After upgrading to a new version of the firmware, WLAN may stop working with the
 
 **Workaround:** Try rebooting the router or resetting the the whole configuration if the issue persists.
 
+### WiFi Channels Not Showing Despite Being Enabled
+WiFi channels may suddenly stop appearing even though they are enabled in the GUI interface.
+
+**Workaround:** Disable 802.11r Fast Transition in the wireless settings to resolve this issue.
+
 ## Tips
 
 ### Backup Configuration Files
