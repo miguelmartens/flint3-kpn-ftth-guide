@@ -113,6 +113,8 @@ This guide explains how to configure a second Flint 3 router as an Access Point 
 
 ## Part 3.5: Configure Wi-Fi Roaming (802.11r Fast Transition)
 
+> **⚠️ Important:** Recently encountered issues where WiFi channels may suddenly stop appearing even though they are enabled in the GUI interface. If you experience this issue, try disabling 802.11r Fast Transition to resolve the problem.
+
 ### 3.5.1 Enable Roaming on Main Router
 
 1. **Access LuCI Interface:**
